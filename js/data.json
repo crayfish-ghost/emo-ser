@@ -43,5 +43,10 @@
     "id": "9",
     "tag": "awayuki|sushi|uni|norimaki|cat",
     "url": "https://awayuki.github.io/emoji/v1-009.png"
+  },
+  {
+    "id": "10",
+    "tag":"wayo",
+    "url": "https://raw.githubusercontent.com/TsukemonoGit/TsukemonoGit.github.io/main/img/emoji-wayo.png"
   }
 ]
