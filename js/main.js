@@ -8,6 +8,39 @@ fetch('js/data.json')
 })
 .catch(error => console.error('Error:', error));
 
+function copyToClipboard(column) {
+  // カラムのテキストを取得
+
+    var text = column.textContent || column.innerText;
+    column.innerText += " (Copied!)"; // カラムの文字列の後ろに "(Copied!)" を追加
+
+    // 一定時間後に "(Copied!)" を削除
+    setTimeout(function() {
+        column.innerText = column.innerText.replace(" (Copied!)", "");
+    }, 1000);
+
+    // テキストをクリップボードにコピーする
+    navigator.clipboard.writeText(text)
+        .then(function() {
+            console.log("テキストがクリップボードにコピーされました: " + text);
+            column.style.backgroundColor = "#ee82ee"; // カラムの背景色を変更
+
+            // 背景色をフェードアウトさせるアニメーションを追加
+            var opacity = 1;
+            var timer = setInterval(function() {
+                opacity -= 0.1;
+                column.style.backgroundColor = "rgba(238, 130, 238, " + opacity + ")";
+                if (opacity <= 0) {
+                    clearInterval(timer);
+                    column.style.backgroundColor = "";
+                }
+            }, 50);
+
+        }).catch(function(error) {
+            console.error("クリップボードへのコピーに失敗しました: ", error);
+        });
+}
+
 document.getElementById('search').addEventListener('input', function(e) {
     let searchValue = e.target.value;
     let resultDiv = document.getElementById('result');
@@ -34,6 +67,9 @@ document.getElementById('search').addEventListener('input', function(e) {
             // Create a new cell for the URL
             let tdUrl = document.createElement('td');
             tdUrl.textContent = item.url;
+            tdUrl.addEventListener("click", function() {
+                copyToClipboard(this);
+            });
 
             // Create a new cell for the tags
             let tdTag = document.createElement('td');
