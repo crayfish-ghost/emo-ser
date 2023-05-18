@@ -12,11 +12,11 @@ function copyToClipboard(column) {
   // カラムのテキストを取得
 
     var text = column.textContent || column.innerText;
-    column.innerText += " (Copied!)"; // カラムの文字列の後ろに "(Copied!)" を追加
+    column.innerText = "(Copied!)" + column.innerText; // カラムの文字列の後ろに "(Copied!)" を追加
 
     // 一定時間後に "(Copied!)" を削除
     setTimeout(function() {
-        column.innerText = column.innerText.replace(" (Copied!)", "");
+        column.innerText = column.innerText.replace("(Copied!)", "");
     }, 1000);
 
     // テキストをクリップボードにコピーする
